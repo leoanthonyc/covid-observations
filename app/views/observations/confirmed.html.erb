@@ -1,2 +1,14 @@
-<h1>Observations#confirmed</h1>
-<p>Find me in app/views/observations/confirmed.html.erb</p>
+<h1>Confirmed cases</h1>
+<ul>
+  <li>
+    Observation date: <%= @result[:observation_date] ? @result[:observation_date] : 'All' %>
+  </li>
+  <% @result[:countries].each do |row| %>
+    <li>
+      country: <%= row['country'] %>,
+      confirmed: <%= row['confirmed'] %>,
+      deaths: <%= row['deaths'] %>,
+      recovered: <%= row['recovered'] %>
+    </li>
+  <% end %>
+</ul>

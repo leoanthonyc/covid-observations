@@ -1,2 +1,3 @@
 class CovidObservation < ApplicationRecord
+
 end
