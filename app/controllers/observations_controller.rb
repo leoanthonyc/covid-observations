@@ -1,16 +1,23 @@
 class ObservationsController < ApplicationController
   def confirmed
-    rows = CovidObservation.order(confirmed: :desc)
+    observation_date = params[:observation_date]
+    rows = if observation_date.present?
+             CovidObservation.select('SUM(confirmed) as confirmed, SUM(deaths) as deaths, SUM(recovered) as recovered, observation_date, country')
+               .where(observation_date: observation_date)
+               .group('country, observation_date')
+               .order('SUM(confirmed) desc')
+           else
+             CovidObservation.select('SUM(confirmed) as confirmed, SUM(deaths) as deaths, SUM(recovered) as recovered, country')
+               .group('country')
+               .order('SUM(confirmed) desc')
+           end
 
     limit = params[:max_results]
     rows = rows.limit(limit) if limit.present?
 
-    observation_date = params[:observation_date]
-    rows = rows.where(observation_date: observation_date) if observation_date.present?
-
     @result = { 
       observation_date: observation_date,
-      countries: rows.map { |row| row.as_json(only: %i(country confirmed deaths recovered)) }
+      countries: rows.map(&:as_json)
     }
 
     respond_to do |format|
