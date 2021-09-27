@@ -9,6 +9,6 @@
 3. `rails s`
 
 ## How to use
-1. Open your browser and Go to `localhost:3000` or `localhost:3000/top/confirmed`
-2. Append `observation_date` (yyyy-mm-dd) or `max_results` to the url params
+1. Open your browser and navigate to [localhost:3000](localhost:3000) or [localhost:3000/top/confirmed](localhost:3000/top/confirmed)
+2. Append `observation_date` (yyyy-mm-dd) or `max_results` to the url params, i.e. [localhost:3000/top/confirmed?max_results=2](localhost:3000/top/confirmed?max_results=2)
 3. You can also append `.json` to the url for json results e.g. `localhost:3000/top/confirmed.json?max_results=5` 
